@@ -1,10 +1,18 @@
 body {
   font-size: 10px;
-  background: rgb(149, 194, 215);
+  background: rgb(47, 168, 225);
 }
 
 a {
   text-decoration: none;
+}
+
+.logo-text {
+  background: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Goldman;
+  font-size: 37px;
 }
 
 .thumbnail-item {
@@ -31,4 +39,13 @@ a {
 
 .thumbnail-list {
   list-style: none;
+  padding: 0;
+}
+
+/* При использовании такого синтаксиса будут выбраны все элементы li, которым
+непосредственно предшествует имеющий того же родителя элемент li. В резуль-
+тате объявленные стили будут применены к li со второго по пятый, но не к перво-
+му, поскольку ему не предшествует другой li*/
+.thumbnail-item + .thumbnail-item {
+  margin-top: 10px;
 }
