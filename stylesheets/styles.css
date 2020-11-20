@@ -1,0 +1,34 @@
+body {
+  font-size: 10px;
+  background: rgb(149, 194, 215);
+}
+
+a {
+  text-decoration: none;
+}
+
+.thumbnail-item {
+  /* некоторые браузеры не поддерживают rgba, поэтому два
+	объявления — метод указания резервного значения. */
+  display: block;
+  border: 1px solid rgb(100%, 100%, 100%);
+  border: 1px solid rgba(100%, 100%, 100%, 0.8);
+}
+
+.thumbnail-image {
+  display: block;
+  width: 100%;
+}
+
+.thumbnail-title {
+  background: rgb(96, 125 139);
+  color: rgb(202, 238, 255);
+  display: block;
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 18px;
+}
+
+.thumbnail-list {
+  list-style: none;
+}
