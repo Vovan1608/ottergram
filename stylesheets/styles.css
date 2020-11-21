@@ -1,4 +1,11 @@
+html,
 body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
   font-size: 10px;
   background: rgb(47, 168, 225);
 }
@@ -15,10 +22,23 @@ a {
   font-size: 37px;
 }
 
+.main-header {
+  flex: 0 1 auto;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .thumbnail-item {
   /* некоторые браузеры не поддерживают rgba, поэтому два
 	объявления — метод указания резервного значения. */
-  display: block;
+  display: inline-block;
+  /* width: 120px; */
+  min-width: 120px;
+  max-width: 120px;
   border: 1px solid rgb(100%, 100%, 100%);
   border: 1px solid rgba(100%, 100%, 100%, 0.8);
 }
@@ -37,7 +57,25 @@ a {
   font-size: 18px;
 }
 
+.detail-image-container {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+/* Свойству order можно присвоить любое целочисленное значение. Значение
+по умолчанию равно 0 (указывает браузеру использовать задаваемый исходным
+текстом порядок). объявления order: 2 — отрисовывать его после
+всех родственных элементов с более низким значением свойства order, */
 .thumbnail-list {
+  display: flex;
+  flex: 0 1 auto;
+  order: 2;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow-x: auto;
   list-style: none;
   padding: 0;
 }
@@ -46,6 +84,26 @@ a {
 непосредственно предшествует имеющий того же родителя элемент li. В резуль-
 тате объявленные стили будут применены к li со второго по пятый, но не к перво-
 му, поскольку ему не предшествует другой li*/
-.thumbnail-item + .thumbnail-item {
+/* .thumbnail-item + .thumbnail-item {
   margin-top: 10px;
+} */
+
+.detail-image {
+  width: 90%;
+  height: 420px;
+}
+
+.detail-image-frame {
+  position: relative;
+  text-align: center;
+}
+
+.detail-image-title {
+  position: absolute;
+  bottom: -16px;
+  left: 4px;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.9) 1px 2px 9px;
+  font-size: 25px;
+  font-family: Goldman;
 }
