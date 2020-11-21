@@ -63,6 +63,7 @@ a {
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
+  width: 100%;
 }
 
 /* Свойству order можно присвоить любое целочисленное значение. Значение
@@ -90,7 +91,7 @@ a {
 
 .detail-image {
   width: 90%;
-  height: 420px;
+  height: 480px;
 }
 
 .detail-image-frame {
@@ -100,10 +101,29 @@ a {
 
 .detail-image-title {
   position: absolute;
-  bottom: -16px;
+  bottom: -6px;
   left: 4px;
   color: white;
   text-shadow: rgba(0, 0, 0, 0.9) 1px 2px 9px;
   font-size: 25px;
   font-family: Goldman;
+}
+
+@media all and (min-width: 768px) and (orientation: landscape) {
+  .main-content {
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  .thumbnail-list {
+    flex-direction: column;
+    order: 0;
+    margin-left: 20px;
+  }
+  .thumbnail-item {
+    max-width: 260px;
+  }
+  .thumbnail-item + .thumbnail-item {
+    margin-top: 20px;
+  }
 }
