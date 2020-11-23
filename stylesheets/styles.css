@@ -36,11 +36,16 @@ a {
   /* некоторые браузеры не поддерживают rgba, поэтому два
 	объявления — метод указания резервного значения. */
   display: inline-block;
-  /* width: 120px; */
   min-width: 120px;
   max-width: 120px;
   border: 1px solid rgb(100%, 100%, 100%);
   border: 1px solid rgba(100%, 100%, 100%, 0.8);
+
+  transition: transform 133ms ease-in-out;
+}
+
+.thumbnail-item:hover {
+  transform: scale(1.2);
 }
 
 .thumbnail-image {
@@ -78,7 +83,7 @@ a {
   white-space: nowrap;
   overflow-x: auto;
   list-style: none;
-  padding: 0;
+  padding: 20px 0;
 }
 
 /* При использовании такого синтаксиса будут выбраны все элементы li, которым
@@ -97,6 +102,12 @@ a {
 .detail-image-frame {
   position: relative;
   text-align: center;
+  transition: transform 333ms cubic-bezier(1, 0.06, 0.28, 1);
+}
+
+.is-tiny {
+  transform: scale(0.001);
+  transition: transform 0ms;
 }
 
 .detail-image-title {
@@ -109,6 +120,23 @@ a {
   font-family: Goldman;
 }
 
+.hidden-detail .detail-image-container {
+  display: none;
+}
+
+/*
+Добавляем в файл styles.css стили для элементов с классами .thumbnail-list
+и .thumbnail-item в тех случаях, когда они являются потомками .hidden-detail.
+*/
+.hidden-detail .thumbnail-list {
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden-detail .thumbnail-item {
+  max-width: 80%;
+}
+
 @media all and (min-width: 768px) and (orientation: landscape) {
   .main-content {
     flex-direction: row;
@@ -119,6 +147,7 @@ a {
     flex-direction: column;
     order: 0;
     margin-left: 20px;
+    padding: 0 35px;
   }
   .thumbnail-item {
     max-width: 260px;

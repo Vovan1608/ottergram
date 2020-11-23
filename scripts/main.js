@@ -1,21 +1,26 @@
+"use strict";
 /*
 Текст внутри одиночных кавычек — селектор атрибута для нашего увеличенного изображения.
 Это значит, что мы будем использовать эту строку для доступа к данному элементу.
  */
 var DETAIL_IMAGE_SELECTOR = '[data-image-role="target"]';
 /*
-Oбъявляем в файле main.js переменные для селектора названия увели-
-ченного изображения и селектора якоря миниатюры, присваиваем им строковые
-значения:
+Oбъявляем переменные для селектора названия увеличенного изображения и селектора
+якоря миниатюры, присваиваем им строковые значения:
 */
 var DETAIL_TITLE_SELECTOR = '[data-image-role="title"]';
 var THUMBNAIL_LINK_SELECTOR = '[data-image-role="trigger"]';
+var DETAIL_FRAME_SELECTOR = '[data-image-role="frame"]';
+
+var HIDDEN_DETAIL_CLASS = 'hidden-detail';
+var TINY_EFFECT_CLASS = 'is-tiny';
+
+var ESC_KEY = 27;
 
 /*
 меняeт увеличенное изображение и его название.
 */
 function setDetails(imageUrl, titleText) {
-	'use strict';
 	var detailImage = document.querySelector(DETAIL_IMAGE_SELECTOR);
 	detailImage.setAttribute('src', imageUrl);
 
@@ -28,7 +33,6 @@ function setDetails(imageUrl, titleText) {
 миниатюры, и будет извлекать и возвращать значение атрибута data-image-url.
 */
 function imageFromThumb(thumbnail) {
-	'use strict';
 	return thumbnail.getAttribute('data-image-url');
 }
 
@@ -37,7 +41,6 @@ function imageFromThumb(thumbnail) {
 Она будет возвращать значение атрибута data-image-title.
 */
 function titleFromThumb(thumbnail) {
-	'use strict';
 	return thumbnail.getAttribute('data-image-title');
 }
 
@@ -47,7 +50,6 @@ function titleFromThumb(thumbnail) {
 imageFromThumb и titleFromThumb.
 */
 function setDetailsFromThumb(thumbnail) {
-	'use strict';
 	setDetails(imageFromThumb(thumbnail), titleFromThumb(thumbnail));
 }
 
@@ -55,10 +57,10 @@ function setDetailsFromThumb(thumbnail) {
 функция, принимающая на входе миниатюру и добавля­ющая прослушиватель события
 */
 function addThumbClickHandler(thumb){
-	'use strict';
 	thumb.addEventListener('click', function (event) {
 		event.preventDefault();
 		setDetailsFromThumb(thumb);
+		showDetails();
 	});
 }
 
@@ -67,7 +69,6 @@ function addThumbClickHandler(thumb){
 сваивающий результат переменной thumbnails
 */
 function getThumbnailsArray() {
-	'use strict';
 	var thumbnails = document.querySelectorAll(THUMBNAIL_LINK_SELECTOR);
 	// способ преобразования из NodeList в массив
 	var thumbnailArray = [].slice.call(thumbnails);
@@ -75,14 +76,49 @@ function getThumbnailsArray() {
 }
 
 /*
-Этот метод свяжет воедино все шаги по превращению Ottergram в интерактивное
-приложение. Во-первых, он получит массив миниатюр. Далее он пройдет в цикле
+добавление имени класса в элемент <body>
+*/
+function hideDetails() {
+	document.body.classList.add(HIDDEN_DETAIL_CLASS);
+}
+
+/*
+сделать увеличенное изображение снова видимым. Оно станет таким при щелчке на миниатюре.
+*/
+function showDetails() {
+	var frame = document.querySelector(DETAIL_FRAME_SELECTOR);
+	document.body.classList.remove(HIDDEN_DETAIL_CLASS);
+	frame.classList.add(TINY_EFFECT_CLASS);
+	setTimeout(function () {
+		//добавляет класс .is-tiny в элемент frame
+		frame.classList.remove(TINY_EFFECT_CLASS);
+	}, 50);
+}
+
+/*
+вызываet метод document.body.addEventListener с передачей ему строки 'keyup'
+и анонимной функции, объявляющей параметр event. Внутри тела этой анонимной
+функции не забываем вызвать метод preventDefault для event
+*/
+function addKeyPressHandler() {
+	document.body.addEventListener('keyup', function (event) {
+		event.preventDefault();
+		console.log(event.keyCode);
+		// вызыватьфункцию hideDetails при нажатии ESC
+		if (event.keyCode === ESC_KEY) {
+			hideDetails();
+		}
+	});
+}
+
+/*
+получит массив миниатюр. Далее он пройдет в цикле
 по массиву, добавляя обработчик нажатий для каждой из них
 */
 function initializeEvents() {
-	'use strict';
 	var thumbnails = getThumbnailsArray();
 	thumbnails.forEach(addThumbClickHandler);
+	addKeyPressHandler();
 }
 
 initializeEvents();
