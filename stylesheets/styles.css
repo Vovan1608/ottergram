@@ -33,11 +33,11 @@ a {
 }
 
 .thumbnail-item {
-  /* некоторые браузеры не поддерживают rgba, поэтому два
-	объявления — метод указания резервного значения. */
   display: inline-block;
   min-width: 120px;
   max-width: 120px;
+  /* некоторые браузеры не поддерживают rgba, поэтому два
+	объявления — метод указания резервного значения. */
   border: 1px solid rgb(100%, 100%, 100%);
   border: 1px solid rgba(100%, 100%, 100%, 0.8);
 
@@ -96,7 +96,6 @@ a {
 
 .detail-image {
   width: 90%;
-  height: 480px;
 }
 
 .detail-image-frame {
